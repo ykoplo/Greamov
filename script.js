@@ -7,7 +7,7 @@ const posters = {
             image: "https://i.pinimg.com/564x/30/a2/cb/30a2cbc7830110cd118272af60923148.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=5xH0HfJHsaY" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt6751668/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt6751668/" }
             ]
         },
         2: {
@@ -16,7 +16,7 @@ const posters = {
             image: "https://i.pinimg.com/564x/b5/a7/22/b5a72273c8670c69d259e405f8fbffc5.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt1375666/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt1375666/" }
             ]
         },
         3: {
@@ -25,7 +25,7 @@ const posters = {
             image: "https://i.pinimg.com/236x/60/c7/28/60c72822e1f4be0d4fd86a72410fad38.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt1375666/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt1375666/" }
             ]
         },
         // Tambahkan lebih banyak trending movies di sini
@@ -37,7 +37,7 @@ const posters = {
             image: "https://i.pinimg.com/236x/25/04/f7/2504f76a3a28a228d6fd9db0bff5af19.jpg",
             links: [
                 { text: "Watch on Netflix", url: "https://www.netflix.com/title/80057281" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt4574334/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt4574334/" }
             ]
         },
         2: {
@@ -46,7 +46,61 @@ const posters = {
             image: "https://i.pinimg.com/236x/a1/14/d3/a114d33283484eeecc5f98a23d43890c.jpg",
             links: [
                 { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt0903747/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        3: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/236x/68/b5/c0/68b5c047fd53c4ce54d7a8b827f10eb4.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        4: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/474x/79/79/35/797935b958afa4fbfa970a1d09c646c2.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        5: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/236x/95/5d/f3/955df33b2cfc3c0e3834f0ac05963aab.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        6: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/236x/20/e5/f6/20e5f6c0b510b78346ee5a3ec1c17588.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        7: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/474x/52/0f/4c/520f4c5c7f5f7bd66147221f6c03c3a6.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
+            ]
+        },
+        8: {
+            title: "blom ada judul",
+            description: "blom ada isi.",
+            image: "https://i.pinimg.com/236x/5a/d5/5d/5ad55d383e6ddff6071c297009d75d54.jpg",
+            links: [
+                { text: "Watch on Netflix", url: "https://www.netflix.com/title/70143836" },
+                { text: "linkTele", url: "https://www.imdb.com/title/tt0903747/" }
             ]
         },
         // Tambahkan lebih banyak series di sini
@@ -58,7 +112,7 @@ const posters = {
             image: "https://i.pinimg.com/236x/07/72/5a/07725a4383b6158cf22cc362492faea1.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=hEJnMQG9ev8" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt1392190/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt1392190/" }
             ]
         },
         2: {
@@ -67,7 +121,7 @@ const posters = {
             image: "https://i.pinimg.com/236x/02/12/b4/0212b4a89dc44f6cf134af4a4d13f156.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=2AUmvWm5ZDQ" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt2911666/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt2911666/" }
             ]
         },
         3: {
@@ -76,7 +130,7 @@ const posters = {
             image: "https://i.pinimg.com/236x/8c/e3/5f/8ce35f08a33293522c4d60cbc5e642be.jpg",
             links: [
                 { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=2AUmvWm5ZDQ" },
-                { text: "IMDb", url: "https://www.imdb.com/title/tt2911666/" }
+                { text: "linkTele", url: "https://www.imdb.com/title/tt2911666/" }
             ]
         },
         // Tambahkan lebih banyak film adrenalin di sini
@@ -246,6 +300,8 @@ function displayHorizontalScrollPosters(container) {
     const horizontalScrollPosters = [
         { id: 1, category: 'trendingMovies', poster: posters.trendingMovies[1] },
         { id: 2, category: 'series', poster: posters.series[1] },
+        { id: 7, category: 'series', poster: posters.series[7] },
+        { id: 2, category: 'series', poster: posters.series[8] },
         { id: 1, category: 'adrenalin', poster: posters.adrenalin[1] },
         { id: 2, category: 'trendingMovies', poster: posters.trendingMovies[2] },
         { id: 2, category: 'series', poster: posters.series[2] },
