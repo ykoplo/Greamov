@@ -407,11 +407,11 @@ footer {
     }
 
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     }
 
     .poster img {
-        width: 90%;
+        width: 70%;
     }
 }
 
@@ -430,7 +430,7 @@ footer {
     }
 
     .horizontal-scroll {
-        margin-top: 100px;
+        margin-top: 50px;
     }
 
     .poster-item {
@@ -448,8 +448,8 @@ footer {
 
 @media screen and (max-width: 600px) {
     h1 {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
     }
 
     header nav {
@@ -460,7 +460,7 @@ footer {
 
     header nav a, .dropdown {
         margin: 5px 0;
-        width: 100%;
+        width: 60%;
     }
 
     .dropdown-content {
@@ -474,7 +474,7 @@ footer {
     }
 
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     }
 
     .poster-item {
