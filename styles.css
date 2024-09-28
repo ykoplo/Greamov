@@ -41,6 +41,10 @@ h1 {
 header nav {
     text-align: center;
     margin-top: 10px;
+    display: flex;
+    flex-direction: row; /* Keep navigation horizontal */
+    justify-content: center;
+    align-items: center;
 }
 
 header nav a {
@@ -50,7 +54,7 @@ header nav a {
     font-size: 1.1rem;
     padding: 10px 20px;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 5px;
     transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
@@ -132,7 +136,6 @@ header nav a:hover {
     display: inline-block;
     width: 200px;
     margin-right: 10px;
-    position: relative;
     transition: transform 0.3s ease; /* Smooth zoom effect */
 }
 
@@ -369,22 +372,6 @@ header nav a:hover {
     cursor: pointer;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
-
-    .dropdown {
-        width: 100%;
-    }
-
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-    }
-}
 
 /* Footer */
 footer {
@@ -407,13 +394,15 @@ footer {
     }
 
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller columns */
     }
 
     .poster img {
         width: 70%;
     }
+   
 }
+
 
 @media screen and (max-width: 768px) {
     h1 {
@@ -434,11 +423,11 @@ footer {
     }
 
     .poster-item {
-        width: 150px;
+        width: 130px;
     }
 
     .poster-item img {
-        height: 150px;
+        height: 130px;
     }
 
     .poster-detail img {
@@ -454,13 +443,14 @@ footer {
 
     header nav {
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* Mengatur navigasi secara horizontal */
+        justify-content: center; /* Menempatkan tautan navigasi di tengah */
         align-items: center;
     }
-
+    
     header nav a, .dropdown {
-        margin: 5px 0;
-        width: 60%;
+        margin: 3px 0; /* Menambahkan margin agar ada ruang antar elemen */
+        width: auto; /* Pastikan lebar tetap otomatis dan tidak mengisi seluruh layar */
     }
 
     .dropdown-content {
@@ -474,15 +464,15 @@ footer {
     }
 
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 
     .poster-item {
-        width: 120px;
+        width: 100px;
     }
 
     .poster-item img {
-        height: 120px;
+        height: 100px;
     }
 
     .poster-detail img {
