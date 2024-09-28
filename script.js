@@ -313,3 +313,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Add this to your existing JavaScript file
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+        dropbtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.innerWidth <= 600) {
+                dropdownContent.classList.toggle('show');
+            }
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    window.addEventListener('click', function(e) {
+        if (!e.target.matches('.dropbtn')) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+    });
+});
