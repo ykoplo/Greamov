@@ -3,82 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreaMov</title>
+    <title>GreaMov - Home</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1>GreaMov</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="series.html">Series</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Genre</button>
+                    <div class="dropdown-content">
+                        <a href="horror.html">Horror</a>
+                        <a href="drama.html">Drama</a>
+                        <a href="comedy.html">Comedy</a>
+                        <a href="thriller.html">Thriller</a>
+                        <a href="action.html">Action</a>
+                        <a href="netflix.html">Netflix</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
 
-<div class="content-wrapper"> <!-- Header Section -->
-    <header>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for movies">
+            <button id="searchButton">Search</button>
+            <div id="searchResults" class="search-results"></div> <!-- Tempat hasil pencarian -->
+        </div>
+        
+
+        <div class="horizontal-scroll">
+            <div id="horizontalScrollPosters" class="poster-container">
+                <!-- Poster items will be dynamically added here -->
+            </div>
+        </div>
+
         <div class="content-wrapper">
-            <div class="container">
-                <h1>GreaMov</h1>
-                <nav>
-                    <a href="#home">Home</a>
-                    <a href="#Netflix">Netflix</a>
-                    <a href="#Series">Series</a>
-                    <div class="dropdown">
-                        <a href="#Genre" class="dropbtn">Genre</a>
-                        <div class="dropdown-content">
-                            <a href="#Action">Action</a>
-                            <a href="#Comedy">Comedy</a>
-                            <a href="#Drama">Drama</a>
-                            <a href="#Sci-Fi">Sci-Fi</a>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#page4" class="dropbtn">Page 4</a>
-                        <div class="dropdown-content">
-                            <a href="#Subpage1">Subpage 1</a>
-                            <a href="#Subpage2">Subpage 2</a>
-                            <a href="#Subpage3">Subpage 3</a>
-                        </div>
-                    </div>
-                </nav>
+            <div class="container gallery">
+                <h2>Trending Movies</h2>
+                <div id="trendingMovies" class="grid"></div>
             </div>
-    </header>
-
-    <div class="horizontal-scroll">
-        <div class="poster-container">
-            <!-- Poster items will be dynamically added here by JavaScript -->
         </div>
-    </div>
 
-    <div class="content-wrapper">
-        <div class="container gallery">
-            <h2>Trending Movies</h2>
-            <div class="grid" id="trendingMovies">
-                <!-- Trending movie posters will be dynamically added here by JavaScript -->
+        <div class="content-wrapper">
+            <div class="container gallery">
+                <h2>Updated Series</h2>
+                <div id="updatedSeries" class="grid"></div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="container gallery">
+                <h2>Creepy Movies</h2>
+                <div id="creepyMovies" class="grid"></div>
             </div>
         </div>
     </div>
 
-    <div class="content-wrapper">
-        <div class="container gallery">
-            <h4>Series</h4>
-            <div class="grid" id="series">
-                <!-- Series posters will be dynamically added here by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <div class="content-wrapper">
-        <div class="container gallery">
-            <h5>Adrenalin</h5>
-            <div class="grid" id="adrenalin">
-                <!-- Adrenalin movie posters will be dynamically added here by JavaScript -->
-            </div>
-        </div>
-    </div>
-</div>
-            
-             
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 TelegramMovie. All rights reserved.</p>
+        <p>© 2024 GreaMov. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
