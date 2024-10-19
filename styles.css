@@ -88,7 +88,7 @@ nav a:hover, .dropbtn:hover {
 #searchButton {
     padding: 12px 20px;
     font-size: 14px;
-    background-color: #3498db;
+     background-color: #3498db;
     color: white;
     border: 2px solid #3498db;
     border-radius: 0 25px 25px 0;
@@ -170,6 +170,37 @@ nav a:hover, .dropbtn:hover {
         margin: 5px 0;
     }
 }
+
+/* Gaya untuk Kolom Pemberitahuan */
+.notification-bar {
+    background-color: #030202; /* Latar belakang merah */
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.notification-bar strong {
+    font-size: 1.2rem;
+}
+
+.notification-bar a.telegram-link {
+    background-color: #3498db; /* Latar belakang biru */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.notification-bar a.telegram-link:hover {
+    background-color: #2980b9; /* Warna lebih gelap saat di-hover */
+}
+
 
 /* Dropdown */
 .dropdown {
@@ -449,4 +480,25 @@ footer {
 
 .back-button:hover {
     background-color: #2c3e50;
+}
+
+/* Gaya Tombol */
+.poster-links {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #3498db; /* Warna biru */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Warna biru yang lebih gelap saat di-hover */
 }
