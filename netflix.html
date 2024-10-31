@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreaMov - [Category Name]</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1>GreaMov</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="series.html">Series</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Genre</button>
+                    <div class="dropdown-content">
+                        <a href="horror.html">Horror</a>
+                        <a href="drama.html">Drama</a>
+                        <a href="comedy.html">Comedy</a>
+                        <a href="thriller.html">Thriller</a>
+                        <a href="action.html">Action</a>
+                        <a href="netflix.html">Netflix</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for movies">
+            <button id="searchButton">Search</button>
+            <div id="searchResults" class="search-results"></div> <!-- Tempat hasil pencarian -->
+        </div>
+
+        <div class="content-wrapper">
+            <div class="container gallery">
+                <h2>[Category Name] Movies</h2>
+                <div id="categoryPosters" class="grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 GreaMov. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

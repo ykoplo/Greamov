@@ -1,0 +1,504 @@
+/* Reset dan font dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* Layout dasar */
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Header dan Navigasi */
+h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+nav a, .dropbtn {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+nav a:hover, .dropbtn:hover {
+    background-color: #2c3e50;
+}
+
+
+/* Style untuk container pencarian */
+.search-container {
+    display: flex;
+    justify-content: flex-end; /* Menyelaraskan pencarian ke sisi kanan */
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 10px;
+    max-width: 500px; /* Batasi lebar maksimal pencarian */
+    margin-left: auto; /* Mendorong kontainer pencarian ke kanan */
+}
+
+/* Input pencarian dengan desain modern */
+#searchInput {
+    width: 200px; /* Sesuaikan dengan panjang yang Anda inginkan */
+    padding: 12px 15px;
+    font-size: 14px;
+    border: 2px solid #3498db;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Fokus pada input */
+#searchInput:focus {
+    border-color: #2980b9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tombol pencarian */
+#searchButton {
+    padding: 12px 20px;
+    font-size: 14px;
+     background-color: #3498db;
+    color: white;
+    border: 2px solid #3498db;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover untuk tombol pencarian */
+#searchButton:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hasil pencarian */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hasil pencarian tidak akan tampil sampai ada hasil */
+}
+
+/* Item dalam hasil pencarian */
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 75px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.search-result-item h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Hover untuk item hasil pencarian */
+.search-result-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Gaya untuk pesan "No results found" */
+.search-results p {
+    padding: 10px;
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+/* Responsif untuk kolom pencarian */
+@media screen and (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        max-width: 100%; /* Agar memenuhi layar pada perangkat kecil */
+    }
+
+    #searchInput, #searchButton {
+        border-radius: 25px;
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Gaya untuk Kolom Pemberitahuan */
+.notification-bar {
+    background-color: #030202; /* Latar belakang merah */
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.notification-bar strong {
+    font-size: 1.2rem;
+}
+
+.notification-bar a.telegram-link {
+    background-color: #3498db; /* Latar belakang biru */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.notification-bar a.telegram-link:hover {
+    background-color: #2980b9; /* Warna lebih gelap saat di-hover */
+}
+
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Poster Grid */
+/* Gaya untuk grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Gaya untuk poster */
+.poster {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s, transform 0.3s;
+    overflow: hidden;
+    aspect-ratio: 2 / 3; /* Rasio aspek umum untuk poster film */
+}
+
+.poster:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Gaya untuk gambar poster */
+.poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memastikan gambar menutupi area tanpa distorsi */
+    object-position: center; /* Memposisikan gambar di tengah */
+    border-bottom: 2px solid #3498db;
+}
+
+/* Gaya untuk judul poster */
+.poster h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Latar belakang semi-transparan */
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+}
+
+/* Pembungkus untuk poster dan judul */
+.poster-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* CSS untuk horizontal scroll */
+.horizontal-scroll {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 20px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.poster-container {
+    display: inline-flex;
+    gap: 20px;
+}
+
+.horizontal-scroll .poster {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.horizontal-scroll .poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.horizontal-scroll .poster h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    margin: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.horizontal-scroll .poster:hover {
+    transform: scale(1.05);
+}
+
+.horizontal-scroll .poster:hover h3 {
+    transform: translateY(0);
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .horizontal-scroll .poster {
+        width: 150px;
+        height: 225px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .horizontal-scroll .poster {
+        width: 120px;
+        height: 180px;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    nav a, .dropbtn {
+        flex: 1 0 auto;
+        text-align: center;
+    }
+
+    .dropdown {
+        flex: 1 0 100%;
+    }
+
+    .dropdown-content {
+        position: static;
+        display: none;
+        width: 100%;
+    }
+
+    .dropdown-content.show {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .content-wrapper {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Poster Detail Page */
+.poster-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #8ca5b8;
+}
+
+.poster-detail img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.poster-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.poster-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.poster-info p {
+    margin-bottom: 15px;
+}
+
+.poster-links a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.poster-links a:hover {
+    background-color: #2980b9;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #34495e;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #2c3e50;
+}
+
+/* Gaya Tombol */
+.poster-links {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #3498db; /* Warna biru */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Warna biru yang lebih gelap saat di-hover */
+}
