@@ -144,12 +144,39 @@ const posters = {
     },
     netflix: {
         // Isi dengan data film Netflix
+        1: {
+            title: "Start Up",
+            description: "A thief who enters the dreams of others to steal secrets from their subconscious.",
+            image: "https://i.pinimg.com/236x/a5/92/4f/a5924f80801cc96f40753591fd60adda.jpg",
+            links: [
+                { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
+                { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
+            ]
+        },
     },
     series: {
         1: {
             title: "Squit Game",
             description: "game dengan hadiah besar dan bertaruhkan nyawa.",
             image: "https://i.pinimg.com/236x/23/cc/bf/23ccbf28137082dc795cf308f74f5ec0.jpg",
+            links: [
+                { text: "Watch Trailer", url: "https:linkdisiniiii" },
+                { text: "More Info", url: "https:link disinii" }
+            ]
+        },
+        2: {
+            title: "King the Land",
+            description: "game dengan hadiah besar dan bertaruhkan nyawa.",
+            image: "https://i.pinimg.com/236x/c0/f2/8e/c0f28ef0c47afc069b988a2138e5e8a9.jpg",
+            links: [
+                { text: "Watch Trailer", url: "https:linkdisiniiii" },
+                { text: "More Info", url: "https:link disinii" }
+            ]
+        },
+        3: {
+            title: "Big Mouth",
+            description: "game dengan hadiah besar dan bertaruhkan nyawa.",
+            image: "https://i.pinimg.com/236x/bd/bf/be/bdbfbe51aa478ccab7290a01e4d02634.jpg",
             links: [
                 { text: "Watch Trailer", url: "https:linkdisiniiii" },
                 { text: "More Info", url: "https:link disinii" }
@@ -320,25 +347,34 @@ function displayHomePagePosters() {
 
     // Fungsi helper untuk menampilkan poster secara acak dari kategori tertentu
     function displayRandomPosters(container, categories, count) {
-        if (container) {
-            container.innerHTML = '';
-            const allPosters = categories.flatMap(category => 
-                Object.entries(posters[category] || {}).map(([id, poster]) => ({id, category, poster}))
-            );
-            for (let i = 0; i < count && allPosters.length > 0; i++) {
-                const randomIndex = Math.floor(Math.random() * allPosters.length);
-                const {id, category, poster} = allPosters.splice(randomIndex, 1)[0];
-                container.appendChild(createPosterElement(poster, id, category));
-            }
+        if (!container) return; // Tambahan pengecekan
+
+        container.innerHTML = '';
+        const allPosters = categories.flatMap(category => 
+            Object.entries(posters[category] || {}).map(([id, poster]) => ({id, category, poster}))
+        );
+        
+        // Shuffle array menggunakan Fisher-Yates algorithm
+        for (let i = allPosters.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allPosters[i], allPosters[j]] = [allPosters[j], allPosters[i]];
         }
+
+        // Ambil poster sesuai jumlah yang diminta
+        allPosters.slice(0, count).forEach(({id, category, poster}) => {
+            container.appendChild(createPosterElement(poster, id, category));
+        });
     }
 
-    // Menampilkan poster secara acak untuk setiap bagian
-    displayRandomPosters(trendingContainer, ['action', 'drama', 'comedy', 'movies'], 15);
-    displayRandomPosters(seriesContainer, ['series', 'drama'], 15);
-    displayRandomPosters(creepyContainer, ['horror'], 15);
-    displayRandomPosters(horizontalScrollContainer, Object.keys(posters), 10);
+    // Menampilkan poster untuk setiap bagian
+    if (trendingContainer || seriesContainer || creepyContainer) {
+        displayRandomPosters(trendingContainer, ['action', 'drama', 'comedy', 'movies'], 15);
+        displayRandomPosters(seriesContainer, ['series', 'netflix'], 15);
+        displayRandomPosters(creepyContainer, ['horror'], 15);
+        displayHorizontalScrollPosters(); // Memanggil fungsi horizontal scroll
+    }
 }
+
 
 // Fungsi untuk menampilkan detail poster
 function displayPosterDetail() {
