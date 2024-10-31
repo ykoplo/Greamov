@@ -338,43 +338,81 @@ function displayCategoryPosters(category) {
     }
 }
 
-// Fungsi untuk menampilkan poster di halaman utama
-function displayHomePagePosters() {
-    const trendingContainer = document.getElementById('trendingMovies');
-    const seriesContainer = document.getElementById('updatedSeries');
-    const creepyContainer = document.getElementById('creepyMovies');
-    const horizontalScrollContainer = document.getElementById('horizontalScrollPosters');
+// Daftar ID poster terpilih untuk setiap kategori
+const curatedSelections = {
+    trending: {
+        items: [
+            { category: 'drama', id: '1' },    // Shadowplay
+            { category: 'drama', id: '2' },    // Parasite
+            { category: 'movies', id: '1' },   // FALL
+            { category: 'movies', id: '2' },   // HER
+            { category: 'horror', id: '1' },   // Annabelle
+            { category: 'horror', id: '5' },   // MEGAN
+            { category: 'horror', id: '7' },   // The Exorcist
+            { category: 'horror', id: '9' }    // Trap
+        ],
+        title: 'Trending Movies'
+    },
+    series: {
+        items: [
+            { category: 'series', id: '1' },   // Squid Game
+            { category: 'series', id: '2' },   // King the Land
+            { category: 'series', id: '3' },   // Big Mouth
+            { category: 'netflix', id: '1' }   // Start Up
+        ],
+        title: 'Updated Series'
+    },
+    creepy: {
+        items: [
+            { category: 'horror', id: '1' },   // Annabelle
+            { category: 'horror', id: '2' },   // Indigo
+            { category: 'horror', id: '3' },   // Bayi Ajaib
+            { category: 'horror', id: '4' },   // Don't Look Away
+            { category: 'horror', id: '5' },   // MEGAN
+            { category: 'horror', id: '10' }   // Insidious
+        ],
+        title: 'Creepy Movies'
+    }
+};
 
-    // Fungsi helper untuk menampilkan poster secara acak dari kategori tertentu
-    function displayRandomPosters(container, categories, count) {
-        if (!container) return; // Tambahan pengecekan
+// Fungsi untuk menampilkan poster berdasarkan seleksi kurator
+function displayHomePagePosters() {
+    // Fungsi untuk menampilkan satu section
+    function displaySection(sectionKey, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
 
         container.innerHTML = '';
-        const allPosters = categories.flatMap(category => 
-            Object.entries(posters[category] || {}).map(([id, poster]) => ({id, category, poster}))
-        );
+        const section = curatedSelections[sectionKey];
         
-        // Shuffle array menggunakan Fisher-Yates algorithm
-        for (let i = allPosters.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [allPosters[i], allPosters[j]] = [allPosters[j], allPosters[i]];
-        }
-
-        // Ambil poster sesuai jumlah yang diminta
-        allPosters.slice(0, count).forEach(({id, category, poster}) => {
-            container.appendChild(createPosterElement(poster, id, category));
+        section.items.forEach(item => {
+            const poster = posters[item.category]?.[item.id];
+            if (poster) {
+                container.appendChild(createPosterElement(poster, item.id, item.category));
+            }
         });
     }
 
-    // Menampilkan poster untuk setiap bagian
-    if (trendingContainer || seriesContainer || creepyContainer) {
-        displayRandomPosters(trendingContainer, ['action', 'drama', 'comedy', 'movies'], 15);
-        displayRandomPosters(seriesContainer, ['series', 'netflix'], 15);
-        displayRandomPosters(creepyContainer, ['horror'], 15);
-        displayHorizontalScrollPosters(); // Memanggil fungsi horizontal scroll
-    }
+    // Tampilkan setiap section
+    displaySection('trending', 'trendingMovies');
+    displaySection('series', 'updatedSeries');
+    displaySection('creepy', 'creepyMovies');
+    displayHorizontalScrollPosters(); // Tetap mempertahankan horizontal scroll
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname;
+    if (path.includes('index.html') || path === '/') {
+        displayHomePagePosters();
+    } else if (path.includes('poster-detail.html')) {
+        displayPosterDetail();
+    } else {
+        const category = path.split('/').pop().split('.')[0];
+        displayCategoryPosters(category);
+    }
+
+    // ... kode dropdown dan event listener lainnya tetap sama ...
+});
 
 // Fungsi untuk menampilkan detail poster
 function displayPosterDetail() {
