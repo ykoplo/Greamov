@@ -284,48 +284,83 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 //akhir kolom pencarian
 
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.dropdown');
-
-    dropdowns.forEach(dropdown => {
-        const dropbtn = dropdown.querySelector('.dropbtn');
-        const dropdownContent = dropdown.querySelector('.dropdown-content');
-
-        dropbtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (window.innerWidth <= 600) {
-                dropdownContent.classList.toggle('show');
-            }
-        });
-    });
-
-    // Menutup dropdown saat mengklik di luar
-    window.addEventListener('click', function(e) {
-        if (!e.target.matches('.dropbtn')) {
-            const dropdowns = document.querySelectorAll('.dropdown-content');
-            dropdowns.forEach(dropdown => {
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                }
-            });
+// 1. Pertama, ubah fungsi displayHomePagePosters menjadi lebih robust:
+function displayHomePagePosters() {
+    // Helper function untuk memastikan container ada sebelum mencoba mengisinya
+    function displaySection(sectionKey, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.warn(`Container ${containerId} tidak ditemukan`);
+            return;
         }
-    });
+
+        const section = curatedSelections[sectionKey];
+        if (!section || !section.items) {
+            console.warn(`Section ${sectionKey} tidak valid`);
+            return;
+        }
+
+        container.innerHTML = '';
+        section.items.forEach(item => {
+            if (!posters[item.category] || !posters[item.category][item.id]) {
+                console.warn(`Poster tidak ditemukan untuk category: ${item.category}, id: ${item.id}`);
+                return;
+            }
+
+            const poster = posters[item.category][item.id];
+            const posterElement = createPosterElement(poster, item.id, item.category);
+            container.appendChild(posterElement);
+        });
+    }
+
+    displaySection('trending', 'trendingMovies');
+    displaySection('series', 'updatedSeries');
+    displaySection('creepy', 'creepyMovies');
+}
+
+
+// 2. Perbaiki event listener untuk DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Hapus pengecekan path yang berlebihan
+    const path = window.location.pathname;
+    
+    // Tentukan halaman berdasarkan path
+    if (path.endsWith('index.html') || path === '/' || path.length === 0) {
+        console.log('Menampilkan halaman utama');
+        displayHomePagePosters();
+    } else if (path.includes('poster-detail.html')) {
+        console.log('Menampilkan detail poster');
+        displayPosterDetail();
+    } else {
+        // Untuk halaman kategori
+        const category = path.split('/').pop().split('.')[0];
+        if (posters[category]) {
+            console.log('Menampilkan kategori:', category);
+            displayCategoryPosters(category);
+        }
+    }
 });
 
-// Fungsi untuk membuat elemen poster
+// 3. Perbaiki fungsi createPosterElement untuk menangani error
 function createPosterElement(poster, id, category) {
+    if (!poster || !poster.image || !poster.title) {
+        console.error('Data poster tidak lengkap:', { poster, id, category });
+        return document.createElement('div'); // Kembalikan elemen kosong jika data tidak valid
+    }
+
     const posterElement = document.createElement('div');
     posterElement.className = 'poster';
     posterElement.innerHTML = `
         <a href="poster-detail.html?poster=${id}&category=${category}">
             <div class="poster-wrapper">
-                <img src="${poster.image}" alt="${poster.title}">
+                <img src="${poster.image}" alt="${poster.title}" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#e0e0e0'; this.parentElement.innerHTML='<p>Image Not Available</p>';">
                 <h3>${poster.title}</h3>
             </div>
         </a>
     `;
     return posterElement;
 }
+
 
 // Fungsi untuk menampilkan poster berdasarkan kategori
 function displayCategoryPosters(category) {
@@ -375,30 +410,6 @@ const curatedSelections = {
     }
 };
 
-// Fungsi untuk menampilkan poster berdasarkan seleksi kurator
-function displayHomePagePosters() {
-    // Fungsi untuk menampilkan satu section
-    function displaySection(sectionKey, containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        container.innerHTML = '';
-        const section = curatedSelections[sectionKey];
-        
-        section.items.forEach(item => {
-            const poster = posters[item.category]?.[item.id];
-            if (poster) {
-                container.appendChild(createPosterElement(poster, item.id, item.category));
-            }
-        });
-    }
-
-    // Tampilkan setiap section
-    displaySection('trending', 'trendingMovies');
-    displaySection('series', 'updatedSeries');
-    displaySection('creepy', 'creepyMovies');
-    displayHorizontalScrollPosters(); // Tetap mempertahankan horizontal scroll
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
@@ -421,13 +432,18 @@ function displayPosterDetail() {
     const category = urlParams.get('category');
     const poster = posters[category]?.[id];
 
-    if (poster) {
-        document.getElementById('posterTitle').textContent = poster.title;
-        document.getElementById('posterDescription').textContent = poster.description;
-        document.getElementById('posterImage').src = poster.image;
-        document.getElementById('posterImage').alt = poster.title;
+    // Validasi elemen
+    const titleElement = document.getElementById('posterTitle');
+    const descriptionElement = document.getElementById('posterDescription');
+    const imageElement = document.getElementById('posterImage');
+    const linksContainer = document.getElementById('posterLinks');
 
-        const linksContainer = document.getElementById('posterLinks');
+    if (poster && titleElement && descriptionElement && imageElement && linksContainer) {
+        titleElement.textContent = poster.title;
+        descriptionElement.textContent = poster.description;
+        imageElement.src = poster.image;
+        imageElement.alt = poster.title;
+
         linksContainer.innerHTML = '';
         poster.links.forEach(link => {
             const a = document.createElement('a');
@@ -437,52 +453,10 @@ function displayPosterDetail() {
             linksContainer.appendChild(a);
         });
     } else {
-        document.getElementById('posterTitle').textContent = "Poster Not Found";
-        document.getElementById('posterDescription').textContent = "Sorry, we couldn't find the poster you were looking for.";
-        document.getElementById('posterImage').src = "";
-        document.getElementById('posterImage').alt = "Poster Not Found";
+        console.error("Poster atau elemen HTML tidak ditemukan.");
     }
 }
 
-
-// Event listener untuk menginisialisasi halaman
-document.addEventListener('DOMContentLoaded', function() {
-    const path = window.location.pathname;
-    if (path.includes('index.html') || path === '/') {
-        displayHomePagePosters();
-    } else if (path.includes('poster-detail.html')) {
-        displayPosterDetail();
-    } else {
-        const category = path.split('/').pop().split('.')[0];
-        displayCategoryPosters(category);
-    }
-
-    // Menambahkan fungsionalitas dropdown untuk perangkat mobile
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        const dropbtn = dropdown.querySelector('.dropbtn');
-        const dropdownContent = dropdown.querySelector('.dropdown-content');
-
-        dropbtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (window.innerWidth <= 600) {
-                dropdownContent.classList.toggle('show');
-            }
-        });
-    });
-
-    // Menutup dropdown saat mengklik di luar
-    window.addEventListener('click', function(e) {
-        if (!e.target.matches('.dropbtn')) {
-            const dropdowns = document.querySelectorAll('.dropdown-content');
-            dropdowns.forEach(dropdown => {
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                }
-            });
-        }
-    });
-});
 
 
 /* JavaScript untuk horizontal scroll */
