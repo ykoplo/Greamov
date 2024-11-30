@@ -134,6 +134,15 @@ const posters = {
                 { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
             ]
         },
+        3: {
+            title: "Monkey Men",
+            description: "A thief who enters the dreams of others to steal secrets from their subconscious.",
+            image: "https://i.pinimg.com/474x/5d/0e/ea/5d0eea0f99f19fa474b90374f0347162.jpg",
+            links: [
+                { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
+                { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
+            ]
+        },
         // Tambahkan lebih banyak film di sini
     },
     comedy: {
@@ -219,10 +228,11 @@ document.addEventListener('DOMContentLoaded', function() {
             isSimilar(query, poster.title.toLowerCase())
         ).sort((a, b) => a.title.localeCompare(b.title)); // Sortir berdasarkan abjad
 
+        // Navigasi saat data ditemukan
         if (filteredPosters.length > 0) {
-            // Jika hanya ada satu hasil dan pengguna menekan enter, langsung ke halaman detail
             if (filteredPosters.length === 1 && redirect) {
                 const singleResult = filteredPosters[0];
+                console.log("Navigasi ke poster detail:", singleResult);
                 window.location.href = `poster-detail.html?poster=${singleResult.id}&category=${singleResult.category}`;
                 return;
             }
@@ -321,25 +331,17 @@ function displayHomePagePosters() {
 
 // 2. Perbaiki event listener untuk DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Hapus pengecekan path yang berlebihan
     const path = window.location.pathname;
-    
-    // Tentukan halaman berdasarkan path
-    if (path.endsWith('index.html') || path === '/' || path.length === 0) {
+
+    if (path.includes('poster-detail.html')) {
+        console.log('Menampilkan detail poster');
+        displayPosterDetail(); // Hanya panggil di halaman detail
+    } else if (path.includes('index.html') || path === '/') {
         console.log('Menampilkan halaman utama');
         displayHomePagePosters();
-    } else if (path.includes('poster-detail.html')) {
-        console.log('Menampilkan detail poster');
-        displayPosterDetail();
-    } else {
-        // Untuk halaman kategori
-        const category = path.split('/').pop().split('.')[0];
-        if (posters[category]) {
-            console.log('Menampilkan kategori:', category);
-            displayCategoryPosters(category);
-        }
     }
 });
+
 
 // 3. Perbaiki fungsi createPosterElement untuk menangani error
 function createPosterElement(poster, id, category) {
@@ -422,6 +424,8 @@ document.addEventListener('DOMContentLoaded', function() {
         displayCategoryPosters(category);
     }
 
+    
+
     // ... kode dropdown dan event listener lainnya tetap sama ...
 });
 
@@ -431,31 +435,59 @@ function displayPosterDetail() {
     const id = urlParams.get('poster');
     const category = urlParams.get('category');
     const poster = posters[category]?.[id];
+    console.log("Parameter URL:", { id, category });
+    console.log("Poster data:", poster);
 
-    // Validasi elemen
+    // Elemen HTML yang digunakan
     const titleElement = document.getElementById('posterTitle');
     const descriptionElement = document.getElementById('posterDescription');
     const imageElement = document.getElementById('posterImage');
-    const linksContainer = document.getElementById('posterLinks');
+    const trailerLink = document.getElementById('watchTrailer');
+    const infoLink = document.getElementById('moreInfo');
+    console.log("HTML Elements:", {
+        titleElement,
+        descriptionElement,
+        imageElement,
+        trailerLink,
+        infoLink
+    });
 
-    if (poster && titleElement && descriptionElement && imageElement && linksContainer) {
+    if (poster) {
+        console.log("Data poster ditemukan:", poster);
+        // Isi elemen dengan data poster
         titleElement.textContent = poster.title;
         descriptionElement.textContent = poster.description;
         imageElement.src = poster.image;
         imageElement.alt = poster.title;
 
-        linksContainer.innerHTML = '';
-        poster.links.forEach(link => {
-            const a = document.createElement('a');
-            a.href = link.url;
-            a.textContent = link.text;
-            a.target = "_blank";
-            linksContainer.appendChild(a);
-        });
+        // Isi tautan
+        const trailer = poster.links.find(link => link.text === "Watch Trailer");
+        const info = poster.links.find(link => link.text === "More Info");
+
+        if (trailer) {
+            trailerLink.href = trailer.url;
+            trailerLink.style.display = "inline-block";
+        } else {
+            trailerLink.style.display = "none";
+        }
+
+        if (info) {
+            infoLink.href = info.url;
+            infoLink.style.display = "inline-block";
+        } else {
+            infoLink.style.display = "none";
+        }
     } else {
-        console.error("Poster atau elemen HTML tidak ditemukan.");
+        console.error("Data poster tidak ditemukan:", { id, category });
+        console.error("Poster tidak ditemukan untuk kategori:", category, "dan ID:", id);
+        titleElement.textContent = "Poster Not Found";
+        descriptionElement.textContent = "Data untuk poster ini tidak tersedia.";
+        imageElement.src = "";
+        trailerLink.style.display = "none";
+        infoLink.style.display = "none";
     }
 }
+
 
 
 
@@ -528,3 +560,4 @@ if (scrollContainer) {
         scrollContainer.scrollLeft = scrollLeft - walk;
     });
 }
+
