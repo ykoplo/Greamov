@@ -244,8 +244,8 @@ nav a:hover, .dropbtn:hover {
 /* Gaya untuk grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsif */
+    gap: 16px;
 }
 
 /* Gaya untuk poster */
@@ -269,7 +269,6 @@ nav a:hover, .dropbtn:hover {
     height: 100%;
     object-fit: cover; /* Memastikan gambar menutupi area tanpa distorsi */
     object-position: center; /* Memposisikan gambar di tengah */
-    border-bottom: 2px solid #3498db;
 }
 
 /* Gaya untuk judul poster */
@@ -283,7 +282,13 @@ nav a:hover, .dropbtn:hover {
     text-align: center;
     font-size: 1.1rem;
     color: #333;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
     margin: 0;
+}
+
+.grid .poster:hover h3 {
+    transform: translateY(0);
 }
 
 /* Pembungkus untuk poster dan judul */
@@ -368,58 +373,7 @@ footer {
     color: #ecf0f1;
 }
 
-/* Responsiveness */
-@media screen and (max-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    }
 
-    h1 {
-        font-size: 2rem;
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    nav a, .dropbtn {
-        flex: 1 0 auto;
-        text-align: center;
-    }
-
-    .dropdown {
-        flex: 1 0 100%;
-    }
-
-    .dropdown-content {
-        position: static;
-        display: none;
-        width: 100%;
-    }
-
-    .dropdown-content.show {
-        display: block;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .content-wrapper {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 10px;
-    }
-}
 
 /* Poster Detail Page */
 .poster-detail {
@@ -507,15 +461,15 @@ footer {
 /* Responsivitas untuk grid di perangkat kecil */
 @media screen and (max-width: 768px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr); /* Dua poster per baris */
-        gap: 15px; /* Jarak antar poster */
+        grid-template-columns: repeat(3, 1fr); /* Dua poster per baris */
+        gap: 10px; /* Jarak antar poster */
     }
 }
 
 @media screen and (max-width: 480px) {
     .grid {
-        grid-template-columns: repeat(1, 1fr); /* Satu poster per baris */
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr); /* Satu poster per baris */
+        gap: 8px;
     }
 
     .poster {
