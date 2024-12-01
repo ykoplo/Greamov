@@ -502,3 +502,24 @@ footer {
 .btn:hover {
     background-color: #2980b9; /* Warna biru yang lebih gelap saat di-hover */
 }
+
+
+/* Responsivitas untuk grid di perangkat kecil */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* Dua poster per baris */
+        gap: 15px; /* Jarak antar poster */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(1, 1fr); /* Satu poster per baris */
+        gap: 10px;
+    }
+
+    .poster {
+        width: 100%;
+        height: auto;
+    }
+}
