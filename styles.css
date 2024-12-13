@@ -350,20 +350,7 @@ nav a:hover, .dropbtn:hover {
     transform: translateY(0);
 }
 
-/* Responsiveness */
-@media screen and (max-width: 768px) {
-    .horizontal-scroll .poster {
-        width: 150px;
-        height: 225px;
-    }
-}
 
-@media screen and (max-width: 480px) {
-    .horizontal-scroll .poster {
-        width: 120px;
-        height: 180px;
-    }
-}
 
 /* Footer */
 footer {
@@ -458,22 +445,151 @@ footer {
 }
 
 
-/* Responsivitas untuk grid di perangkat kecil */
+/* Base Responsive Principles */
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Global Responsive Typography */
+html {
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    min-width: 320px; /* Minimum width for mobile devices */
+}
+
+/* Responsive Navigation */
 @media screen and (max-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr); /* Dua poster per baris */
-        gap: 10px; /* Jarak antar poster */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr); /* Satu poster per baris */
-        gap: 8px;
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .poster {
+    nav a, .dropbtn {
         width: 100%;
-        height: auto;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .dropdown-content {
+        position: static;
+        display: none;
+        width: 100%;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
     }
 }
+
+/* Responsive Grid Layout */
+@media screen and (max-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+}
+
+/* Responsive Horizontal Scroll */
+.horizontal-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: thin; /* Thin scrollbar for modern browsers */
+    scrollbar-color: #3498db #f4f4f4; /* Custom scrollbar colors */
+}
+
+.poster-container {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+
+/* Responsive Search Container */
+@media screen and (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 100%;
+    }
+
+    #searchInput, 
+    #searchButton {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+}
+
+/* Responsive Poster Detail */
+.poster-detail {
+    flex-direction: column;
+    align-items: center;
+}
+
+.poster-info {
+    text-align: center;
+    max-width: 100%;
+}
+
+.poster-detail img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Typography */
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 14px; /* Smaller font size on mobile */
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .notification-bar {
+        font-size: 14px;
+    }
+}
+
+/* Touch-friendly Interactions */
+@media (hover: hover) {
+    /* Styles for devices with hover capability */
+    .poster:hover {
+        transform: scale(1.05);
+    }
+}
+
+@media (hover: none) {
+    /* Styles for touch-only devices */
+    .poster:active {
+        transform: scale(1.05);
+    }
+}
+
+/* Accessibility and Performance Improvements */
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Fluid Typography for Better Readability */
+h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
