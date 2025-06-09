@@ -134,15 +134,6 @@ const posters = {
                 { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
             ]
         },
-        3: {
-            title: "Monkey Men",
-            description: "A thief who enters the dreams of others to steal secrets from their subconscious.",
-            image: "https://i.pinimg.com/474x/5d/0e/ea/5d0eea0f99f19fa474b90374f0347162.jpg",
-            links: [
-                { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
-                { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
-            ]
-        },
         // Tambahkan lebih banyak film di sini
     },
     comedy: {
@@ -153,15 +144,6 @@ const posters = {
     },
     netflix: {
         // Isi dengan data film Netflix
-        1: {
-            title: "Start Up",
-            description: "A thief who enters the dreams of others to steal secrets from their subconscious.",
-            image: "https://i.pinimg.com/236x/a5/92/4f/a5924f80801cc96f40753591fd60adda.jpg",
-            links: [
-                { text: "Watch Trailer", url: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
-                { text: "More Info", url: "https://www.imdb.com/title/tt1375666/" }
-            ]
-        },
     },
     series: {
         1: {
@@ -173,30 +155,11 @@ const posters = {
                 { text: "More Info", url: "https:link disinii" }
             ]
         },
-        2: {
-            title: "King the Land",
-            description: "game dengan hadiah besar dan bertaruhkan nyawa.",
-            image: "https://i.pinimg.com/236x/c0/f2/8e/c0f28ef0c47afc069b988a2138e5e8a9.jpg",
-            links: [
-                { text: "Watch Trailer", url: "https:linkdisiniiii" },
-                { text: "More Info", url: "https:link disinii" }
-            ]
-        },
-        3: {
-            title: "Big Mouth",
-            description: "game dengan hadiah besar dan bertaruhkan nyawa.",
-            image: "https://i.pinimg.com/236x/bd/bf/be/bdbfbe51aa478ccab7290a01e4d02634.jpg",
-            links: [
-                { text: "Watch Trailer", url: "https:linkdisiniiii" },
-                { text: "More Info", url: "https:link disinii" }
-            ]
-        },
         // Isi dengan data series TV
     }
     
 };
 
-//kolompencarian
 document.addEventListener('DOMContentLoaded', function() {
     // Event listener untuk tombol pencarian dan input pencarian
     document.getElementById('searchButton').addEventListener('click', searchPosters);
@@ -207,6 +170,48 @@ document.addEventListener('DOMContentLoaded', function() {
             searchPosters(false); // Menampilkan hasil secara real-time saat mengetik
         }
     });
+
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+        dropbtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.innerWidth <= 600) {
+                dropdownContent.classList.toggle('show');
+            }
+        });
+    });
+
+    // Menutup dropdown saat mengklik di luar
+    window.addEventListener('click', function(e) {
+        if (!e.target.matches('.dropbtn')) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+    });
+
+    // Menampilkan poster berdasarkan kategori
+    const path = window.location.pathname;
+    if (path.includes('index.html') || path === '/') {
+        displayHomePagePosters();
+    } else if (path.includes('poster-detail.html')) {
+        displayPosterDetail();
+    } else {
+        const category = path.split('/').pop().split('.')[0];
+        displayCategoryPosters(category);
+    }
+
+    // Menampilkan poster horizontal
+    displayHorizontalScrollPosters();
+});
+
 
     // Fungsi pencarian yang lebih canggih
     function searchPosters(redirect = false) {
@@ -228,11 +233,10 @@ document.addEventListener('DOMContentLoaded', function() {
             isSimilar(query, poster.title.toLowerCase())
         ).sort((a, b) => a.title.localeCompare(b.title)); // Sortir berdasarkan abjad
 
-        // Navigasi saat data ditemukan
         if (filteredPosters.length > 0) {
+            // Jika hanya ada satu hasil dan pengguna menekan enter, langsung ke halaman detail
             if (filteredPosters.length === 1 && redirect) {
                 const singleResult = filteredPosters[0];
-                console.log("Navigasi ke poster detail:", singleResult);
                 window.location.href = `poster-detail.html?poster=${singleResult.id}&category=${singleResult.category}`;
                 return;
             }
@@ -291,78 +295,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return matrix[b.length][a.length];
     }
-});
-//akhir kolom pencarian
-
-// 1. Pertama, ubah fungsi displayHomePagePosters menjadi lebih robust:
-function displayHomePagePosters() {
-    // Helper function untuk memastikan container ada sebelum mencoba mengisinya
-    function displaySection(sectionKey, containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) {
-            console.warn(`Container ${containerId} tidak ditemukan`);
-            return;
-        }
-
-        const section = curatedSelections[sectionKey];
-        if (!section || !section.items) {
-            console.warn(`Section ${sectionKey} tidak valid`);
-            return;
-        }
-
-        container.innerHTML = '';
-        section.items.forEach(item => {
-            if (!posters[item.category] || !posters[item.category][item.id]) {
-                console.warn(`Poster tidak ditemukan untuk category: ${item.category}, id: ${item.id}`);
-                return;
-            }
-
-            const poster = posters[item.category][item.id];
-            const posterElement = createPosterElement(poster, item.id, item.category);
-            container.appendChild(posterElement);
-        });
-    }
-
-    displaySection('trending', 'trendingMovies');
-    displaySection('series', 'updatedSeries');
-    displaySection('creepy', 'creepyMovies');
-}
 
 
-// 2. Perbaiki event listener untuk DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    const path = window.location.pathname;
-
-    if (path.includes('poster-detail.html')) {
-        console.log('Menampilkan detail poster');
-        displayPosterDetail(); // Hanya panggil di halaman detail
-    } else if (path.includes('index.html') || path === '/') {
-        console.log('Menampilkan halaman utama');
-        displayHomePagePosters();
-    }
-});
 
 
-// 3. Perbaiki fungsi createPosterElement untuk menangani error
+
+// Fungsi untuk membuat elemen poster
 function createPosterElement(poster, id, category) {
-    if (!poster || !poster.image || !poster.title) {
-        console.error('Data poster tidak lengkap:', { poster, id, category });
-        return document.createElement('div'); // Kembalikan elemen kosong jika data tidak valid
-    }
-
     const posterElement = document.createElement('div');
     posterElement.className = 'poster';
     posterElement.innerHTML = `
         <a href="poster-detail.html?poster=${id}&category=${category}">
             <div class="poster-wrapper">
-                <img src="${poster.image}" alt="${poster.title}" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#e0e0e0'; this.parentElement.innerHTML='<p>Image Not Available</p>';">
+                <img src="${poster.image}" alt="${poster.title}">
                 <h3>${poster.title}</h3>
             </div>
         </a>
     `;
     return posterElement;
 }
-
 
 // Fungsi untuk menampilkan poster berdasarkan kategori
 function displayCategoryPosters(category) {
@@ -375,59 +326,34 @@ function displayCategoryPosters(category) {
     }
 }
 
-// Daftar ID poster terpilih untuk setiap kategori
-const curatedSelections = {
-    trending: {
-        items: [
-            { category: 'drama', id: '1' },    // Shadowplay
-            { category: 'drama', id: '2' },    // Parasite
-            { category: 'movies', id: '1' },   // FALL
-            { category: 'movies', id: '2' },   // HER
-            { category: 'horror', id: '1' },   // Annabelle
-            { category: 'horror', id: '5' },   // MEGAN
-            { category: 'horror', id: '7' },   // The Exorcist
-            { category: 'horror', id: '9' }    // Trap
-        ],
-        title: 'Trending Movies'
-    },
-    series: {
-        items: [
-            { category: 'series', id: '1' },   // Squid Game
-            { category: 'series', id: '2' },   // King the Land
-            { category: 'series', id: '3' },   // Big Mouth
-            { category: 'netflix', id: '1' }   // Start Up
-        ],
-        title: 'Updated Series'
-    },
-    creepy: {
-        items: [
-            { category: 'horror', id: '1' },   // Annabelle
-            { category: 'horror', id: '2' },   // Indigo
-            { category: 'horror', id: '3' },   // Bayi Ajaib
-            { category: 'horror', id: '4' },   // Don't Look Away
-            { category: 'horror', id: '5' },   // MEGAN
-            { category: 'horror', id: '10' }   // Insidious
-        ],
-        title: 'Creepy Movies'
-    }
-};
+// Fungsi untuk menampilkan poster di halaman utama
+function displayHomePagePosters() {
+    const trendingContainer = document.getElementById('trendingMovies');
+    const seriesContainer = document.getElementById('updatedSeries');
+    const creepyContainer = document.getElementById('creepyMovies');
+    const horizontalScrollContainer = document.getElementById('horizontalScrollPosters');
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const path = window.location.pathname;
-    if (path.includes('index.html') || path === '/') {
-        displayHomePagePosters();
-    } else if (path.includes('poster-detail.html')) {
-        displayPosterDetail();
-    } else {
-        const category = path.split('/').pop().split('.')[0];
-        displayCategoryPosters(category);
+    // Fungsi helper untuk menampilkan poster secara acak dari kategori tertentu
+    function displayRandomPosters(container, categories, count) {
+        if (container) {
+            container.innerHTML = '';
+            const allPosters = categories.flatMap(category => 
+                Object.entries(posters[category] || {}).map(([id, poster]) => ({id, category, poster}))
+            );
+            for (let i = 0; i < count && allPosters.length > 0; i++) {
+                const randomIndex = Math.floor(Math.random() * allPosters.length);
+                const {id, category, poster} = allPosters.splice(randomIndex, 1)[0];
+                container.appendChild(createPosterElement(poster, id, category));
+            }
+        }
     }
 
-    
-
-    // ... kode dropdown dan event listener lainnya tetap sama ...
-});
+    // Menampilkan poster secara acak untuk setiap bagian
+    displayRandomPosters(trendingContainer, ['action', 'drama', 'comedy', 'movies'], 15);
+    displayRandomPosters(seriesContainer, ['series', 'drama'], 15);
+    displayRandomPosters(creepyContainer, ['horror'], 15);
+    displayRandomPosters(horizontalScrollContainer, Object.keys(posters), 10);
+}
 
 // Fungsi untuk menampilkan detail poster
 function displayPosterDetail() {
@@ -435,59 +361,58 @@ function displayPosterDetail() {
     const id = urlParams.get('poster');
     const category = urlParams.get('category');
     const poster = posters[category]?.[id];
-    console.log("Parameter URL:", { id, category });
-    console.log("Poster data:", poster);
-
-    // Elemen HTML yang digunakan
-    const titleElement = document.getElementById('posterTitle');
-    const descriptionElement = document.getElementById('posterDescription');
-    const imageElement = document.getElementById('posterImage');
-    const trailerLink = document.getElementById('watchTrailer');
-    const infoLink = document.getElementById('moreInfo');
-    console.log("HTML Elements:", {
-        titleElement,
-        descriptionElement,
-        imageElement,
-        trailerLink,
-        infoLink
-    });
 
     if (poster) {
-        console.log("Data poster ditemukan:", poster);
-        // Isi elemen dengan data poster
-        titleElement.textContent = poster.title;
-        descriptionElement.textContent = poster.description;
-        imageElement.src = poster.image;
-        imageElement.alt = poster.title;
+        document.getElementById('posterTitle').textContent = poster.title;
+        document.getElementById('posterDescription').textContent = poster.description;
+        document.getElementById('posterImage').src = poster.image;
+        document.getElementById('posterImage').alt = poster.title;
 
-        // Isi tautan
-        const trailer = poster.links.find(link => link.text === "Watch Trailer");
-        const info = poster.links.find(link => link.text === "More Info");
-
-        if (trailer) {
-            trailerLink.href = trailer.url;
-            trailerLink.style.display = "inline-block";
-        } else {
-            trailerLink.style.display = "none";
-        }
-
-        if (info) {
-            infoLink.href = info.url;
-            infoLink.style.display = "inline-block";
-        } else {
-            infoLink.style.display = "none";
-        }
+        const linksContainer = document.getElementById('posterLinks');
+        linksContainer.innerHTML = '';
+        poster.links.forEach(link => {
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.textContent = link.text;
+            a.target = "_blank";
+            linksContainer.appendChild(a);
+        });
     } else {
-        console.error("Data poster tidak ditemukan:", { id, category });
-        console.error("Poster tidak ditemukan untuk kategori:", category, "dan ID:", id);
-        titleElement.textContent = "Poster Not Found";
-        descriptionElement.textContent = "Data untuk poster ini tidak tersedia.";
-        imageElement.src = "";
-        trailerLink.style.display = "none";
-        infoLink.style.display = "none";
+        document.getElementById('posterTitle').textContent = "Poster Not Found";
+        document.getElementById('posterDescription').textContent = "Sorry, we couldn't find the poster you were looking for.";
+        document.getElementById('posterImage').src = "";
+        document.getElementById('posterImage').alt = "Poster Not Found";
     }
 }
 
+
+// Event listener untuk menginisialisasi halaman
+
+    // Menambahkan fungsionalitas dropdown untuk perangkat mobile
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+        dropbtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.innerWidth <= 600) {
+                dropdownContent.classList.toggle('show');
+            }
+        });
+    });
+
+    // Dropdwon kolom
+    window.addEventListener('click', function(e) {
+        if (!e.target.matches('.dropbtn')) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+    });
 
 
 
@@ -560,4 +485,3 @@ if (scrollContainer) {
         scrollContainer.scrollLeft = scrollLeft - walk;
     });
 }
-
