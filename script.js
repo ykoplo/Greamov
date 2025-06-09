@@ -198,13 +198,21 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (path.includes('poster-detail.html')) {
         displayPosterDetail();
     } else {
-        const category = path.split('/').pop().split('.')[0];
-        displayCategoryPosters(category);
+        const category = path.split('/').pop().split('.')[0]; // Mendapatkan kategori dari URL
+        if (posters[category]) { // Memastikan kategori ada dalam data
+            displayCategoryPosters(category); // Menampilkan poster untuk kategori yang sesuai
+        } else {
+            // Jika kategori tidak ditemukan, Anda bisa menampilkan pesan atau mengarahkan ke halaman lain
+            console.error("Category not found:", category);
+            // Contoh: Redirect ke halaman utama atau tampilkan pesan
+            displayHomePagePosters(); // Menampilkan homepage jika kategori tidak ditemukan
+        }
     }
 
     // Menampilkan poster horizontal
     displayHorizontalScrollPosters();
 });
+
 
 // Fungsi pencarian yang lebih canggih
 function searchPosters(redirect = false) {
